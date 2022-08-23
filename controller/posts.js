@@ -1,3 +1,4 @@
+const Comments = require('../model/comments');
 const Posts = require('../model/posts');
 
 const getTotalsOfPagination = (totalElements, pageSize, pageNo) => {
@@ -15,8 +16,12 @@ module.exports.findAllPosts = (req, res, next) => {
     //Implement Pagination
     Posts.findAndCountAll({
         order: [[sortBy, sortDir]],
-        limit: pageSize || 10,              //By default get 10 records
-        offset: pageNo * pageSize || 0      //By default get page 0
+        limit: pageSize || 10,          //By default get 10 records
+        offset: pageNo * pageSize || 0, //By default get page 0
+        include: [{                     
+            model: Comments,            //Include Comments but only Name and Body fields attribtues: ['name', 'body']
+            attributes: ['id','name','email','body']
+        }]
     })
         .then((result) => {
             const { totalElements, totalPages, lastOne } = getTotalsOfPagination(result.count, pageSize, pageNo)

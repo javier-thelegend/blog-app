@@ -1,6 +1,8 @@
 const { DataTypes } = require('sequelize');
 const db = require('../db/sequelize');
 
+const Comments = require('./comments');
+
 const Posts = db.define('posts', {
     title: {
         type: DataTypes.STRING,
@@ -16,8 +18,13 @@ const Posts = db.define('posts', {
         allowNull: false
     }
 }, {
-    db,
     timestamps: false
+});
+
+//Define Asocciations with Comments Model
+Posts.hasMany(Comments, {
+    foreignKey: "post_id",
+    sourceKey: "id"
 });
 
 module.exports = Posts;
