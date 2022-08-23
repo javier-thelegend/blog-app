@@ -17,6 +17,9 @@ module.exports.createComment = (req, res, next) => {
 module.exports.findAllComments = (req, res, next) => {
     const post_id = req.params.id
     Comments.findAll({
+        attributes: {
+            exclude: ['post_id']
+        },
         where: {
             post_id
         }//,                Can include Post in the response but it's better include comments in Posts.findAll
