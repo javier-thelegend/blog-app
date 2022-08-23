@@ -1,4 +1,5 @@
 const Comments = require('../model/comments');
+// const Posts = require('../model/posts');
 
 module.exports.createComment = (req, res, next) => {
     Comments.create({
@@ -18,7 +19,10 @@ module.exports.findAllComments = (req, res, next) => {
     Comments.findAll({
         where: {
             post_id
-        }
+        }//,                Can include Post in the response but it's better include comments in Posts.findAll
+        // include: {
+        //     model: Posts
+        // }
     })
         .then((result) => {
             res.status(200).json({ valid: true, data: result })

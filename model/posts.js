@@ -27,6 +27,11 @@ Posts.hasMany(Comments, {
     sourceKey: "id"
 });
 
+Comments.belongsTo(Posts, {
+    foreignKey: "post_id",
+    sourceKey: "id"
+});
+
 module.exports = Posts;
 
 // const db = require('../db/index');
