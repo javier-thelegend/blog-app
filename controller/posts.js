@@ -53,7 +53,11 @@ module.exports.createPost = (req, res, next) => {
 module.exports.findPostById = (req, res, next) => {
     Posts.findByPk(req.params.id)
         .then((result) => {
-            res.status(200).json({ valid: true, data: result })
+            if(result) {
+                res.status(200).json({ valid: true, data: result })
+            } else {
+                res.status(404).json({ valid: false, message: `Post Not Found with Id : '${req.params.id}'` })
+            }
         })
         .catch((e) => res.status(400).json({ valid: false, message: e }))
 }
