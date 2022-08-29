@@ -18,9 +18,9 @@ module.exports.findAllPosts = (req, res, next) => {
         order: [[sortBy, sortDir]],
         limit: pageSize || 10,          //By default get 10 records
         offset: pageNo * pageSize || 0, //By default get page 0
-        include: [{                     
+        include: [{
             model: Comments,            //Include Comments but only Name and Body fields attribtues: ['name', 'body']
-            attributes: ['id','name','email','body']
+            attributes: ['id', 'name', 'email', 'body']
         }]
     })
         .then((result) => {
@@ -51,9 +51,15 @@ module.exports.createPost = (req, res, next) => {
 }
 
 module.exports.findPostById = (req, res, next) => {
-    Posts.findByPk(req.params.id)
+    Posts.findByPk(req.params.id, {
+        include: [{
+            model: Comments,            //Include Comments but only Name and Body fields attribtues: ['name', 'body']
+            attributes: ['id', 'name', 'email', 'body']
+        }]
+    })
+
         .then((result) => {
-            if(result) {
+            if (result) {
                 res.status(200).json({ valid: true, data: result })
             } else {
                 res.status(404).json({ valid: false, message: `Post Not Found with Id : '${req.params.id}'` })
