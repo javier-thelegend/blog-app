@@ -51,7 +51,8 @@ module.exports.createPost = (req, res, next) => {
 }
 
 module.exports.findPostById = (req, res, next) => {
-    Posts.findByPk(req.params.id, {
+    const { id } = req.params
+    Posts.findByPk(id, {
         include: [{
             model: Comments,            //Include Comments but only Name and Body fields attribtues: ['name', 'body']
             attributes: ['id', 'name', 'email', 'body']
