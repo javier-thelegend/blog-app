@@ -113,13 +113,13 @@ module.exports.deleteComment = async (req, res, next) => {
 
     const Post = await Posts.findByPk(post_id)
     if (Post == null) {
-        res.status(404).json({ valid: false, message: `Post Not Found with id : '${post_id}'` })
+        res.status(404).json({ valid: false, message: `Post Not Found with id : '${post_id}'` }) //This can be handled using validator
         return;
     }
 
     const Comment = await Comments.findByPk(comment_id)
     if (Comment == null) {
-        res.status(404).json({ valid: false, message: `Comment Not Found with id : '${comment_id}'` })
+        res.status(404).json({ valid: false, message: `Comment Not Found with id : '${comment_id}'` }) //This can be handled using validator
         return;
     }
 
