@@ -11,7 +11,8 @@ const validate = (req, res, next) => {
     }
 }
 
-module.exports.validatePostId = [
-    param('id').isInt().withMessage('Post Id must be Integer'),
+module.exports.validateCommentId = [
+    param('post_id').isInt().withMessage('Post Id must be Integer'),
+    param('comment_id').isInt().withMessage('Comment Id must be Integer'),
     validate
 ]

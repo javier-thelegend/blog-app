@@ -6,7 +6,9 @@ const { createPost, findAllPosts, findPostById, updatePost, deletePost } = requi
 
 const { createComment , findAllComments, findCommentById, updateComment, deleteComment } = require('../controller/comments');
 
-const { validatePostId, validateCommentId } = require('../validators/posts');
+const { validatePostId } = require('../validators/posts');
+
+const { validateCommentId } = require('../validators/comments');
 
 
 router.get('/', findAllPosts);
