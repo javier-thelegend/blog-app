@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const allowRoles = require('../security/roleValidation');
 
 
 const { createPost, findAllPosts, findPostById, updatePost, deletePost } = require('../controller/posts');
@@ -11,9 +12,9 @@ const { validatePostId, validatePostBody } = require('../validators/posts');
 const { validateCommentId, validateCommentBody } = require('../validators/comments');
 
 
-router.get('/', findAllPosts);
+router.get('/', allowRoles('ROLE_ADMIN', 'ROLE_USER'), findAllPosts);
 
-router.post('/', validatePostBody, createPost);
+router.post('/', allowRoles('ROLE_ADMIN'), validatePostBody, createPost);
 
 router.get('/:id', validatePostId, findPostById);
 

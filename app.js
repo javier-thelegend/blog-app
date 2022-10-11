@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
+var authenticator = require('./security/authenticator');
 
 var app = express();
 
@@ -18,6 +19,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// authenticate each request
+// will set `request.user`
+app.use(authenticator);
 
 app.use('/', indexRouter);
 app.use('/posts', postsRouter);
