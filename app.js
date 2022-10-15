@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
+var authRouter = require('./routes/auth');
 var authenticator = require('./security/authenticator');
 
 var app = express();
@@ -19,6 +20,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Singin/SingUp
+app.use("/auth", authRouter);
 
 // authenticate each request
 // will set `request.user`
